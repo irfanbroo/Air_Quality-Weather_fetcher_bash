@@ -22,6 +22,7 @@
 
 ## Introduction
 
+I really put some work into this project and here is my finalised code, feeling good after making all the stuff work and seeing it in action. 
 The Weather and Air Quality Fetcher script provides a comprehensive weather report for a specified city. It fetches weather data from both [wttr.in](https://wttr.in) and OpenWeatherMap, including details such as temperature, weather conditions, sunrise and sunset times, and the Air Quality Index (AQI). The script then displays this information in a user-friendly format.
 
 ## Features
