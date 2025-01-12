@@ -1,9 +1,24 @@
 #!/bin/bash
 
+
+check_network(){
+        ping -c1 -W3 google.com > /dev/null
+        if [ $? -ne 0 ]; then
+                echo "You should have an active internet connection"
+                exit 1
+        fi
+
+}
+
+
 if_error(){
         echo "Usage: $0 <city_name>"
         echo "Example: $0 Kerala"
 }
+
+
+check_network
+
 
 city="$1"
 api_key="804619b6f979a6320d16c23b95b7d0d2"
