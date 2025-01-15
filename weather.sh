@@ -1,6 +1,16 @@
 #!/bin/bash
 
 
+check_jq(){
+        if ! command -v jq &> /dev/null
+        then
+                echo "Jq not installed. Please install jq to run this script, check the readme"
+        exit 1
+        fi
+}
+
+
+
 check_network(){
         ping -c1 -W3 google.com > /dev/null
         if [ $? -ne 0 ]; then
@@ -18,7 +28,7 @@ if_error(){
 
 
 check_network
-
+check_jq
 
 city="$1"
 api_key="804619b6f979a6320d16c23b95b7d0d2"
