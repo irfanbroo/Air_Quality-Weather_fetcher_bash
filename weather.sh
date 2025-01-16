@@ -9,15 +9,21 @@ check_jq(){
         fi
 }
 
+check_curl(){
 
+  if ! command -v jq &> /dev/null
+  then
+              echo "PLease install curl to run this script, check the README.md"
+  exit
+  fi
+}
 
 check_network(){
-        ping -c1 -W3 google.com > /dev/null
-        if [ $? -ne 0 ]; then
-                echo "You should have an active internet connection"
-                exit 1
-        fi
-
+    curl -s --head http://google.com > /dev/null
+    if [ $? -ne 0 ]; then
+        echo "You should have an active internet connection"
+        exit 1
+    fi
 }
 
 
