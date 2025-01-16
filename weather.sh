@@ -2,6 +2,10 @@
 
 # Load environment variables from .env
 load_env() {
+    if [[ -n "$OPENWEATHER_API_KEY" ]]; then
+        return 0
+    fi
+
     if [[ -f ".env" ]]; then
         export $(grep -v '^#' .env | xargs)
     else
