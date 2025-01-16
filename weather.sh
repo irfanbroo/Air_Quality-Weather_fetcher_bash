@@ -6,8 +6,12 @@ load_env() {
         return 0
     fi
 
-    if [[ -f ".env" ]]; then
-        export $(grep -v '^#' .env | xargs)
+    local script_dir env_file
+    script_dir=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+    env_file="${script_dir}/.env"
+
+    if [[ -f "$env_file" ]]; then
+        export $(< "$env_file")
     else
         echo "Error: .env file not found. Please create a .env file with the required variables."
         exit 1
@@ -24,8 +28,7 @@ check_dependency() {
 }
 
 check_network() {
-    curl -s --head http://google.com > /dev/null
-    if [ $? -ne 0 ]; then
+    if ! curl -s --head http://google.com &> /dev/null; then
         echo "Error: No active internet connection. Please check your network."
         exit 1
     fi
