@@ -89,6 +89,8 @@ brew install jq curl
 ```
 
 ## Sample Output
+![Uploading image.png…]()
+
 
 ```plaintext
 Fetching weather details for Delhi.....
