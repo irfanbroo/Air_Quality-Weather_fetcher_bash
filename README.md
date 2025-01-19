@@ -55,6 +55,19 @@ sudo apt-get install jq curl
 sudo yum install jq curl
 ```
 
+### For NixOS/NixPKGmanager: 
+
+```bash
+sudo nano /etc/nixos/configuration.nix
+sudo nixos-rebuild switch
+```
+
+### For Fedora/RPM:-
+
+```bash
+sudo dnf install curl jq
+```
+
 ### For macOS:
 ```bash
 brew install jq curl
