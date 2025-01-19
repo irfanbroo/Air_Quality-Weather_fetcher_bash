@@ -89,46 +89,7 @@ brew install jq curl
 ```
 
 ## Sample Output
-![Uploading image.png…]()
 
-
-```plaintext
-Fetching weather details for Delhi.....
-========================================
-          WEATHER REPORT
-========================================
-Delhi: 🌞 +30°C
-========================================
-        DETAILED WEATHER REPORT
-{
-  "coord": { "lon": 77.22, "lat": 28.67 },
-  "weather": [
-    { "main": "Clear", "description": "clear sky" }
-  ],
-  "main": { "temp": 30.0, "pressure": 1012, "humidity": 40 },
-  "visibility": 10000,
-  "wind": { "speed": 5.7, "deg": 320 },
-  "clouds": { "all": 0 },
-  "dt": 1618914195,
-  "sys": {
-    "type": 1,
-    "id": 9052,
-    "country": "IN",
-    "sunrise": 1618872354,
-    "sunset": 1618917224
-  },
-  "timezone": 19800,
-  "id": 1273294,
-  "name": "Delhi",
-  "cod": 200
-}
-========================================
-Sunrise: Sat Apr 24 06:32:34 UTC 2021
-Sunset: Sat Apr 24 19:27:04 UTC 2021
-Air Quality Index (AQI): 3 (Moderate)
-========================================
-For more details, visit: https://wttr.in/Delhi
-```
 
 ## Script Details
 
