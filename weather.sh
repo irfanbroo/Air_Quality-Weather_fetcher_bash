@@ -94,28 +94,40 @@ main() {
         exit 1
     fi
 
+    # Save JSON data to a file
+    local script_dir
+    script_dir=$(dirname "$(realpath "${BASH_SOURCE[0]}")")
+    echo "$CURRENT_WEATHER" > "${script_dir}/weather.json"
+
     lat=$(echo "$CURRENT_WEATHER" | jq -r '.coord.lat')
     lon=$(echo "$CURRENT_WEATHER" | jq -r '.coord.lon')
     AQI_DATA=$(fetch_aqi_data "$lat" "$lon")
     AQI=$(echo "$AQI_DATA" | jq -r '.list[0].main.aqi')
     AQI_LEVEL=$(map_aqi_level "$AQI")
 
-    SUNRISE=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunrise')
-    SUNSET=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunset')
-    SUNRISE_TIME=$(date -d @"$SUNRISE")
-    SUNSET_TIME=$(date -d @"$SUNSET")
-
     echo "========================================"
-    echo "          WEATHER REPORT"
+    echo "          🌤️  WEATHER REPORT 🌤️"
     echo "========================================"
     echo "$WEATHER"
     echo "========================================"
-    echo "        DETAILED WEATHER REPORT"
-    echo "$CURRENT_WEATHER"
+    echo "        🌍 DETAILED WEATHER REPORT 🌍"
+    echo "City: $(echo "$CURRENT_WEATHER" | jq -r '.name')"
+    echo "Temperature: $(echo "$CURRENT_WEATHER" | jq -r '.main.temp')°C"
+    echo "Feels Like: $(echo "$CURRENT_WEATHER" | jq -r '.main.feels_like')°C"
+    echo "Weather: $(echo "$CURRENT_WEATHER" | jq -r '.weather[0].description' | awk '{print toupper(substr($0,1,1))tolower(substr($0,2))}')"
+    echo "Humidity: $(echo "$CURRENT_WEATHER" | jq -r '.main.humidity')%"
+    echo "Wind Speed: $(echo "$CURRENT_WEATHER" | jq -r '.wind.speed') m/s"
+    echo "Pressure: $(echo "$CURRENT_WEATHER" | jq -r '.main.pressure') hPa"
     echo "========================================"
-    echo "Sunrise: $SUNRISE_TIME"
-    echo "Sunset: $SUNSET_TIME"
-    echo "Air Quality Index (AQI): $AQI ($AQI_LEVEL)"
+
+    SUNRISE=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunrise')
+    SUNSET=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunset')
+    SUNRISE_TIME=$(date -d @"$SUNRISE" "+%I:%M %p")
+    SUNSET_TIME=$(date -d @"$SUNSET" "+%I:%M %p")
+
+    echo "☀️  Sunrise: $SUNRISE_TIME"
+    echo "🌙 Sunset: $SUNSET_TIME"
+    echo "🌫️  Air Quality Index (AQI): $AQI ($AQI_LEVEL)"
     echo "========================================"
     echo "For more details, visit: https://wttr.in/${city}"
 }
