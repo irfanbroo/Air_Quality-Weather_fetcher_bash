@@ -91,7 +91,7 @@ brew install jq curl
 ## Sample Output
 
 
-![Screenshot of demo output](https://github.com/coderzawad/Air_QualityWeatherAPI_bash/blob/main/2025-01-19-221421_hyprshot.png)
+![Screenshot of demo output](https://raw.githubusercontent.com/coderzawad/Air_QualityWeatherAPI_bash/refs/heads/main/Screenshot%202025-01-24%20at%208.22.57%E2%80%AFPM.png)
 
 
 
