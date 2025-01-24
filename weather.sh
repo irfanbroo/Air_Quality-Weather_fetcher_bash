@@ -23,6 +23,11 @@ check_dependency() {
     local name=$2
     if ! command -v "$dependency" &> /dev/null; then
         echo "Error: $name is not installed. Please install $name to run this script."
+        if [[ "$dependency" == "jq" ]]; then
+            echo "Install jq: sudo apt install jq (Linux) or brew install jq (macOS)"
+        elif [[ "$dependency" == "curl" ]]; then
+            echo "Install curl: sudo apt install curl (Linux) or brew install curl (macOS)"
+        fi
         exit 1
     fi
 }
@@ -36,7 +41,7 @@ check_network() {
 
 if_error() {
     echo "Usage: $0 <city_name>"
-    echo "Example: $0 Kerala"
+    echo "Example: $0 Dhaka"
 }
 
 fetch_weather() {
@@ -122,8 +127,15 @@ main() {
 
     SUNRISE=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunrise')
     SUNSET=$(echo "$CURRENT_WEATHER" | jq -r '.sys.sunset')
-    SUNRISE_TIME=$(date -d @"$SUNRISE" "+%I:%M %p")
-    SUNSET_TIME=$(date -d @"$SUNSET" "+%I:%M %p")
+
+    # MacOS-compatible date command for sunrise and sunset
+    if [[ "$(uname)" == "Darwin" ]]; then
+        SUNRISE_TIME=$(date -r "$SUNRISE" "+%I:%M %p")
+        SUNSET_TIME=$(date -r "$SUNSET" "+%I:%M %p")
+    else
+        SUNRISE_TIME=$(date -d @"$SUNRISE" "+%I:%M %p")
+        SUNSET_TIME=$(date -d @"$SUNSET" "+%I:%M %p")
+    fi
 
     echo "☀️  Sunrise: $SUNRISE_TIME"
     echo "🌙 Sunset: $SUNSET_TIME"
